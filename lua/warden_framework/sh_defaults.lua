@@ -63,6 +63,7 @@ Warden.SetDefaultServerSetting("model_filter_whitelist", false)
 
 Warden.SetDefaultServerSetting("perm_notify", true)
 Warden.SetDefaultServerSetting("always_target_bots", false)
+Warden.SetDefaultServerSetting("freeze_spawn", false)
 Warden.SetDefaultServerSetting("gravgun_punt", true)
 Warden.SetDefaultServerSetting("physgun_reload", true)
 Warden.SetDefaultServerSetting("phy_damage", true)

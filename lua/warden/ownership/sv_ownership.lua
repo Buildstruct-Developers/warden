@@ -267,12 +267,33 @@ if undo then
 	end
 end
 
-hook.Add("PlayerSpawnedEffect",  "Warden", function(ply, _, ent) Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedProp",    "Warden", function(ply, _, ent) Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedRagdoll", "Warden", function(ply, _, ent) Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedNPC",     "Warden", function(ply, ent)    Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedSENT",    "Warden", function(ply, ent)    Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedSWEP",    "Warden", function(ply, ent)    Warden.SetOwner(ent, ply) end)
-hook.Add("PlayerSpawnedVehicle", "Warden", function(ply, ent)    Warden.SetOwner(ent, ply) end)
+local function onSpawn(ply, ent)
+	if Warden.GetServerBool("freeze_spawn") then
+		for i = 0, ent:GetPhysicsObjectCount() - 1 do
+			local phys = ent:GetPhysicsObjectNum(i)
+			phys:EnableMotion(false)
+		end
+	end
+
+	Warden.SetOwner(ent, ply)
+end
+
+hook.Add("PlayerSpawnedEffect",  "Warden", function(ply, _, ent) onSpawn(ply, ent) end)
+hook.Add("PlayerSpawnedProp",    "Warden", function(ply, _, ent) onSpawn(ply, ent) end)
+hook.Add("PlayerSpawnedNPC",     "Warden", function(ply, ent)    onSpawn(ply, ent) end)
+hook.Add("PlayerSpawnedSENT",    "Warden", function(ply, ent)    onSpawn(ply, ent) end)
+hook.Add("PlayerSpawnedSWEP",    "Warden", function(ply, ent)    onSpawn(ply, ent) end)
+hook.Add("PlayerSpawnedVehicle", "Warden", function(ply, ent)    onSpawn(ply, ent) end)
+
+hook.Add("PlayerSpawnedRagdoll", "Warden", function(ply, _, ent)
+	if Warden.GetServerBool("freeze_spawn") then
+		for i = 0, ent:GetPhysicsObjectCount() - 1 do
+			local phys = ent:GetPhysicsObjectNum(i)
+			phys:Sleep()
+		end
+	end
+
+	Warden.SetOwner(ent, ply)
+end)
 
 hook.Add("EntityRemoved", "Warden", Warden.ClearOwner)

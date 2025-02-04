@@ -261,6 +261,7 @@ local function serverSettings(panel)
 	panel:Help(Warden.L("Configure general server settings."))
 
 	Warden.SetUpCheck(panel, "Players can always affect bots", "always_target_bots")
+	Wardem.SetUpCheck(panel, "Freeze entities on spawn", "freeze_spawn")
 	Warden.SetUpCheck(panel, "Allow gravgun punting", "gravgun_punt")
 	Warden.SetUpCheck(panel, "Allow physgun reload", "physgun_reload")
 	Warden.SetUpCheck(panel, "Allow physics damage", "phy_damage")
